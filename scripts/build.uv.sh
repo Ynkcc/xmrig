@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
 UV_VERSION="1.48.0"
+echo ANDROID_NDK_PATH
 echo $ANDROID_NDK_PATH # 替换为你的 Android NDK 路径
 
 # 设置交叉编译工具链路径
@@ -16,7 +17,7 @@ mkdir -p deps/lib
 mkdir -p build && cd build
 
 # 下载 libuv 源码
-wget https://dist.libuv.org/dist/v${UV_VERSION}/libuv-v${UV_VERSION}.tar.gz -O v${UV_VERSION}.tar.gz
+wget  --quiet https://dist.libuv.org/dist/v${UV_VERSION}/libuv-v${UV_VERSION}.tar.gz -O v${UV_VERSION}.tar.gz
 tar -xzf v${UV_VERSION}.tar.gz
 
 cd libuv-v${UV_VERSION}

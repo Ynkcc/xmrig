@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@latest
+      id: setup-ndk
+      with:
+        ndk-version: r21 
+        add-to-path: false
+
     - name: Build depents
       run: |
         cd scripts
