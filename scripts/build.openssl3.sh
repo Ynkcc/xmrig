@@ -12,7 +12,7 @@ wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -O openssl
 tar -xzf openssl-${OPENSSL_VERSION}.tar.gz
 
 cd openssl-${OPENSSL_VERSION}
-./config android -no-shared -no-asm -no-zlib -no-comp -no-dgram -no-filenames -no-cms
+./config android-arm64  -no-shared -no-asm -no-zlib -no-comp -no-dgram -no-filenames -no-cms
 make -j$(nproc || sysctl -n hw.ncpu || sysctl -n hw.logicalcpu)
 cp -fr include ../../deps
 cp libcrypto.a ../../deps/lib

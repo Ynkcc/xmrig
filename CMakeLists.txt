@@ -40,7 +40,7 @@ option(HWLOC_DEBUG          "Enable hwloc debug helpers and log" OFF)
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
-
+set(XMRIG_DEPS "${CMAKE_SOURCE_DIR}/scripts/deps")
 
 include (CheckIncludeFile)
 include (cmake/cpu.cmake)
