@@ -1,4 +1,4 @@
-name: CMake on a single platform
+name: Build on Android
 
 on:
   push:
@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
+    - name: Build depents
+      run: |
+        cd scripts
+        sh build_deps.sh
     - name: Build
       run: |
         cd $GITHUB_WORKSPACE
-        cmake -DXMRIG_DEPS=$GITHUB_WORKSPACE/deps -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+        cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
         -DANDROID_ABI="arm64-v8a" \
         -DANDROID_NDK=$ANDROID_NDK \
         -DANDROID_PLATFORM=android-26 \
+        -DXMRIG_DEPS=$GITHUB_WORKSPACE/scripts/deps \
         .
         make -j$(nproc)
         tar cfz ubuntu_build.tar.gz xmrig
