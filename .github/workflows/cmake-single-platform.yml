@@ -1,0 +1,30 @@
+name: CMake on a single platform
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE
+        cmake -DXMRIG_DEPS=$GITHUB_WORKSPACE/deps -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+        -DANDROID_ABI="arm64-v8a" \
+        -DANDROID_NDK=$ANDROID_NDK \
+        -DANDROID_PLATFORM=android-26 \
+        .
+        make -j$(nproc)
+        tar cfz ubuntu_build.tar.gz xmrig
+        
+    - name: Upload Ubuntu build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ubuntu_build
+        path: ubuntu_build.tar.gz
